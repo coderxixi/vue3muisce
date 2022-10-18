@@ -12,7 +12,7 @@
         <!-- 歌手列表区域 -->
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
-          <ul>
+          <ul v-loading="false">
             <li v-for="(n, index) of albums" class="item" :key="index">
               <div class="icon">
                 <img v-lazy="n.pic" alt="" width="60" height="60" />
