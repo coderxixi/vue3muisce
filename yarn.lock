@@ -42,6 +42,13 @@
   dependencies:
     "@better-scroll/shared-utils" "^2.5.0"
 
+"@better-scroll/observe-dom@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.npmmirror.com/@better-scroll/observe-dom/-/observe-dom-2.5.0.tgz#886d20ffb4d1cde2d229fb8a7b4bc1a678e4288d"
+  integrity sha512-E7wZooGYN9BKcJ+/Tto+GnDN5KNoXlnnde/0Vs9MuQqvI73neFpIcHD3MvX99DaGCpV3cOQlmCw0dmL9q+jEow==
+  dependencies:
+    "@better-scroll/core" "^2.5.0"
+
 "@better-scroll/shared-utils@^2.5.0":
   version "2.5.0"
   resolved "https://registry.npmmirror.com/@better-scroll/shared-utils/-/shared-utils-2.5.0.tgz#1cb5c25b5766920516ede88ce30149be321e88c4"

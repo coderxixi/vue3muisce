@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.5.0",
+    "@better-scroll/observe-dom": "^2.5.0",
     "@better-scroll/slide": "^2.5.0",
     "axios": "^1.1.3",
     "express": "^4.18.2",
