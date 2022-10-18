@@ -6,9 +6,9 @@ export default function get(url,params){
   return axios.get(url,{
     params
   }).then((res)=>{
-    // const res=res.data
-    if(res.code==ERR_OK){
-    return res.result
+    const re=res.data
+    if(re.code==ERR_OK){
+    return re.result
     }
    
   }).catch((e)=>{
