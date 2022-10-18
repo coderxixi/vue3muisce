@@ -1,12 +1,38 @@
 <template>
   <div class="recommend" >
-      <div>
-        <div class="slider-wrapper">
+    <!-- 轮播图区域 -->
+    <div class="recommend-content">
+      <div class="slider-wrapper">
           <div class="slider-content">
-            <slider :sliders="sliders"></slider>
+            <Slider v-if="sliders.length" :sliders="sliders"/>
           </div>
-        </div>
       </div>
+      <!-- 歌手列表区域 -->
+      <div class="recommend-list">
+        <h1 class="list-title">热门歌单推荐</h1>
+        <ul>
+          <li
+          v-for="(n,index) of albums"
+          class="item"
+          :key="index"
+          >
+          <div class="icon">
+            <img :src="n.pic" alt="" width="60" height="60">
+          </div>
+          <div class="text">
+            <h2 class="name">
+              {{n.name}}
+            </h2>
+            <p class="title">
+              {{n.title}}
+            </p>
+          </div>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+      
   </div>
 </template>
 <script setup>
@@ -14,16 +40,14 @@
   import { getRecommend } from '@/service/recommend'
   import {ref,onMounted} from "vue"
   const sliders=ref([])
+  const albums=ref([])
   onMounted(()=>{
-    console.log('fwf');
     getRecommend().then((res)=>{
       sliders.value=res.sliders
+      albums.value=res.albums
     })
-   
   })
- 
 </script>
-
 <style lang="scss" scoped>
   .recommend {
     position: fixed;
