@@ -1,16 +1,12 @@
 import { defineConfig,normalizePath } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from "path"
-// 全局 scss 文件的路径
-// 用 normalizePath 解决 window 下的路径问题
 
-// https://vitejs.dev/config/
 export default defineConfig({
   //取别名
   resolve:{
     alias:{
       "@":path.resolve(__dirname,"src"),
-     
     },
   },
    // css 相关的配置
@@ -23,7 +19,15 @@ export default defineConfig({
     }
   },
   server:{
-    open:true
+    open:true,
+    proxy:{
+      '/api': {
+          target:'http://localhost:3001/',
+          changeOrigin: true,
+      },
+  }
   },
+ 
   plugins: [vue()]
 })
+

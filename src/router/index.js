@@ -1,5 +1,9 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 const routers = [
+  // {
+  //   path:'/',
+  //   redirect:() => import('@/view/recommend.vue')
+  // },
   {
     path: "/recommend",
     component: () => import('@/view/recommend.vue')
