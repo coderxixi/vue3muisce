@@ -15,7 +15,7 @@
           <ul>
             <li v-for="(n, index) of albums" class="item" :key="index">
               <div class="icon">
-                <img :src="n.pic" alt="" width="60" height="60" />
+                <img v-lazy="n.pic" alt="" width="60" height="60" />
               </div>
               <div class="text">
                 <h2 class="name">

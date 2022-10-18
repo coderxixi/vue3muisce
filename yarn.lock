@@ -1595,6 +1595,11 @@ vue-router@^4.1.5:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
+vue3-lazy@^1.0.0-alpha.1:
+  version "1.0.0-alpha.1"
+  resolved "https://registry.npmmirror.com/vue3-lazy/-/vue3-lazy-1.0.0-alpha.1.tgz#326a56c2ade4430c76b7ac90d33a7fde0af9aaa6"
+  integrity sha512-dpjpKK4DC5q+wZVtS/VY3X6pYBJHxRmYanr20s39RB6o6fvbneQ/DNuz37bipYfEdrEvbSZ95Y2SCexuznQNrQ==
+
 vue@^3.2.37:
   version "3.2.41"
   resolved "https://registry.npmmirror.com/vue/-/vue-3.2.41.tgz"
