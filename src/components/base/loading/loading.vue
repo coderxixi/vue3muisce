@@ -11,7 +11,9 @@
 <script setup>
 import { ref } from "vue";
 let titleRef=ref('加载中...')
-
+const setTitle=(title)=>{
+  titleRef.value=title
+}
 </script>
 
 <style lang="scss" scoped>
