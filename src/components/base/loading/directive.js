@@ -27,8 +27,8 @@ const myLodingDirective = {
     const instance=app.mount(document.createElement('div'));
     const title=binding.arg;
     if(typeof title !=="undefined"){
-    
-    } instance.setTitle(title)
+      instance.setTitle(title)
+    } 
     el.instance=instance;
     if(binding.value){
       append(el)
