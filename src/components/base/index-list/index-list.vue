@@ -8,7 +8,7 @@
       <li v-for="(s, index) of singerList" :key="index" class="group">
         <h2 class="title">{{ s.title }}</h2>
         <ul>
-          <li v-for="(item, index) of s.list" :key="index" class="item">
+          <li v-for="(item, index) of s.list" :key="index" class="item" @click="onItemClick(item)">
             <img v-lazy="item.pic" class="avatar" />
             <span class="name">{{ item.name }}</span>
           </li>
@@ -45,15 +45,19 @@
 import Scroll from "@/components/base/scroll/scroll.vue";
 import useFiexd from "./use-fixed.js";
 import useShortcut from "./use-shortcut.js";
-import { defineProps } from "vue";
+import { defineProps,defineEmits } from "vue";
 const props = defineProps({
   singerList: {
     type: Array,
     default: [],
   },
 });
+const emit=defineEmits(['select'])
 const { groupRef, onScroll, fiexdTitle, fiexdStyle, currentIndex } =useFiexd(props);
 const { shortcutlist,onShortcutTouchStart,onShortcutTouchmove,onShortcutTouchend,scrollRef } = useShortcut(props,groupRef);
+const onItemClick=(item)=>{
+  emit('select',item)
+}
 </script>
 <style lang="scss" scoped>
 .index-list {

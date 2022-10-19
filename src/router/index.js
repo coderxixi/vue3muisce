@@ -10,7 +10,13 @@ const routers = [
   },
   {
     path: "/singer",
-    component: () => import('@/view/singer.vue')
+    component: () => import('@/view/singer.vue'),
+    children:[
+      {
+        path:':id',
+        component:()=>import("@/view/singer-detaif.vue")
+      }
+    ]
   },
   {
     path: "/top-list",
