@@ -1,5 +1,5 @@
 <template>
- <div class="singer" v-loading="!singerList.length">
+ <div class="singer" >
   <IndexList :singerList="singerList"/>
  </div>
 </template>

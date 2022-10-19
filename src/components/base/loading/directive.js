@@ -16,7 +16,7 @@ if(['absolute','fixed','relative'].indexOf(style.position)==-1){
 //移除
 function remove(el){
   removeClass(el,relativeCls)
-  el.removeChild(el.instance.$el)
+  // el.removeChild(el.instance.$el)
   
 }
 const myLodingDirective = {
