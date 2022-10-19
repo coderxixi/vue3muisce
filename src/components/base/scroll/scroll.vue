@@ -6,7 +6,7 @@
 
 <script setup>
 
-import {ref,defineProps,defineEmits} from "vue"
+import {ref,defineProps,defineEmits,defineExpose} from "vue"
 import useScroll from "./use-scroll"
 const emit= defineEmits(['scroll'])
 const props= defineProps({
@@ -20,7 +20,8 @@ const props= defineProps({
   }
 })
 const rootRef=ref(null)
-useScroll(rootRef,props,emit)
+const scroll= useScroll(rootRef,props,emit);
+defineExpose({scroll})
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,11 @@
 <template>
- <div class="singer" >
-  <IndexList :singerList="singerList"/>
- </div>
+  <div class="singer">
+    <IndexList :singerList="singerList" />
+  </div>
 </template>
 
 <script setup>
-import IndexList from "@/components/base/index-list/index-list.vue"
+import IndexList from "@/components/base/index-list/index-list.vue";
 import { getsingList } from "@/service/singer.js";
 import { ref, onMounted } from "vue";
 const singerList = ref([]);
@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.singer{
+.singer {
   position: fixed;
   width: 100%;
   top: 88px;

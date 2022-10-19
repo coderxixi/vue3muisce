@@ -1,5 +1,9 @@
 <template>
-  <Scroll class="index-list" @scroll="onScroll" :probe-type="3">
+  <Scroll class="index-list" 
+   @scroll="onScroll" 
+   :probe-type="3"
+   ref="scrollRef"
+   >
     <ul ref="groupRef">
       <li v-for="(s, index) of singerList" :key="index" class="group">
         <h2 class="title">{{ s.title }}</h2>
@@ -15,12 +19,32 @@
     <div class="fixed" v-if="fiexdTitle" :style="fiexdStyle">
       <div class="fiexd-title">{{ fiexdTitle }}</div>
     </div>
+    <!-- 右侧固定导航栏 -->
+    <div
+      class="shortcut"
+      @touchstart.stop.prevent="onShortcutTouchStart"
+      @touchmove.stop.prevent="onShortcutTouchmove"
+      @touchend.stop.prevent="onShortcutTouchend"
+    >
+      <ul>
+        <li
+          v-for="(item, index) of shortcutlist"
+          :key="index"
+          class="item"
+          :data-index="index"
+          :class="{ current: currentIndex == index }"
+        >
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </Scroll>
 </template>
 
 <script setup>
 import Scroll from "@/components/base/scroll/scroll.vue";
 import useFiexd from "./use-fixed.js";
+import useShortcut from "./use-shortcut.js";
 import { defineProps } from "vue";
 const props = defineProps({
   singerList: {
@@ -28,11 +52,9 @@ const props = defineProps({
     default: [],
   },
 });
-
-const { groupRef ,onScroll,fiexdTitle,fiexdStyle} = useFiexd(props);
-
+const { groupRef, onScroll, fiexdTitle, fiexdStyle, currentIndex } =useFiexd(props);
+const { shortcutlist,onShortcutTouchStart,onShortcutTouchmove,onShortcutTouchend,scrollRef } = useShortcut(props,groupRef);
 </script>
-
 <style lang="scss" scoped>
 .index-list {
   position: relative;
@@ -76,6 +98,27 @@ const { groupRef ,onScroll,fiexdTitle,fiexdStyle} = useFiexd(props);
       font-size: $font-size-small;
       color: $color-text-l;
       background: $color-highlight-background;
+    }
+  }
+  .shortcut {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    padding: 20px 0;
+    border-radius: 10px;
+    background: $color-background-d;
+    font-family: Helvetica;
+    .item {
+      padding: 3px;
+      line-height: 1;
+      color: $color-text-l;
+      font-size: $font-size-small;
+      text-align: center;
+      &.current {
+        color: $color-theme;
+      }
     }
   }
 }
