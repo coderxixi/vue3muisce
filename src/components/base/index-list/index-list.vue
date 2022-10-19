@@ -12,7 +12,7 @@
       </li>
     </ul>
     <!-- 固定标题 -->
-    <div class="fixed">
+    <div class="fixed" v-if="fiexdTitle" :style="fiexdStyle">
       <div class="fiexd-title">{{ fiexdTitle }}</div>
     </div>
   </Scroll>
@@ -29,7 +29,7 @@ const props = defineProps({
   },
 });
 
-const { groupRef ,onScroll,fiexdTitle} = useFiexd(props);
+const { groupRef ,onScroll,fiexdTitle,fiexdStyle} = useFiexd(props);
 
 </script>
 
