@@ -1,19 +1,18 @@
 <template>
   <div class="music-list">
     <!-- 返回按钮 -->
-
-    <div class="back">
+    <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
     <!-- 标题 -->
     <h1 class="title">{{ title }}</h1>
     <!-- 背景区域 -->
-    <div class="bg-image" :style="bgImageStyle">
+    <div class="bg-image" :style="bgImageStyle" ref="bgImgRef">
       <div class="filter"></div>
     </div>
     <!--可滚动歌曲列表 -->
-    <Scroll class="list">
-      <div class="song-list-wrapper">
+    <Scroll class="list" :style="scrollStyle" v-loading="songs.length>0">
+      <div class="song-list-wrapper" >
         <SongerList :songs="songs"></SongerList>
       </div>
     </Scroll>
@@ -23,7 +22,11 @@
 <script setup>
 import SongerList from "@/components/base/singer-liset/singer-list.vue";
 import Scroll from "@/components/base/scroll/scroll.vue";
-import { defineProps, computed } from "vue";
+import { defineProps, computed ,ref,onMounted} from "vue";
+import {useRouter} from "vue-router";
+const router=useRouter()
+const imageHeight=ref(0);
+const bgImgRef=ref(null)
 const props = defineProps({
   songs: {
     type: Array,
@@ -37,6 +40,17 @@ const props = defineProps({
 const bgImageStyle = computed(() => {
   return { backgroundImage: `url(${props.pic})` };
 });
+const scrollStyle=computed(()=>{
+  return {
+    top:`${imageHeight.value}px`
+  }
+})
+const back=()=>{
+  router.back()
+}
+onMounted(()=>{
+  imageHeight.value=bgImgRef.value.clientHeight
+})
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +88,8 @@ const bgImageStyle = computed(() => {
     width: 100%;
     transform-origin: top;
     background-size: cover;
+    padding-top: 70%;
+    z-index: 1;
     .play-btn-wrapper {
       position: absolute;
       bottom: 20px;
