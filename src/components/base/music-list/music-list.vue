@@ -8,10 +8,16 @@
     <h1 class="title">{{ title }}</h1>
     <!-- 背景区域 -->
     <div class="bg-image" :style="bgImageStyle" ref="bgImgRef">
-      <div class="filter"></div>
+      <div class="filter"
+      :style="filterStyle"
+      ></div>
     </div>
     <!--可滚动歌曲列表 -->
-    <Scroll class="list" :style="scrollStyle" v-loading="songs.length>0">
+    <Scroll class="list" 
+    :style="scrollStyle"
+     :probe-type="3"
+     @scroll="onScroll"
+     >
       <div class="song-list-wrapper" >
         <SongerList :songs="songs"></SongerList>
       </div>
@@ -26,7 +32,12 @@ import { defineProps, computed ,ref,onMounted} from "vue";
 import {useRouter} from "vue-router";
 const router=useRouter()
 const imageHeight=ref(0);
-const bgImgRef=ref(null)
+const bgImgRef=ref(null);
+// 滚动Y轴的距离
+const scrollY=ref(0)
+//最大的滚动距离
+const maxTranslteY=ref(0 )
+const HEIGHT=40  
 const props = defineProps({
   songs: {
     type: Array,
@@ -38,8 +49,43 @@ const props = defineProps({
   pic: String,
 });
 const bgImageStyle = computed(() => {
-  return { backgroundImage: `url(${props.pic})` };
+  const scrollYs= scrollY.value;
+  let zIndex=0 ;
+  let paddingTop='70%';
+  let height=0;
+  // 解决ios兼容性问题
+  let translateZ=0
+  // 下拉放大
+  let salce=1
+  if(scrollYs<0){
+    salce =1+Math.abs(scrollYs/imageHeight.value)
+  }
+  if(scrollYs>maxTranslteY.value ){
+    zIndex=10 
+    paddingTop=0;
+    height='40px'
+    translateZ=1
+  }
+  return { 
+   backgroundImage: `url(${props.pic})`,
+   zIndex,
+   paddingTop,
+   height,
+   transform:`scale(${salce})`
+  };
 });
+const filterStyle=computed(()=>{
+  // 模糊程度
+  let blur=0 ;
+  const scrollYs=scrollY.value;
+  const ImageHeight=imageHeight.value;
+  if(scrollYs>=0){
+    blur=Math.min(maxTranslteY.value/imageHeight.value,scrollYs/ImageHeight*20) 
+  }
+  return {
+    backdropFilter:`blur(${blur}px)`
+  }
+})
 const scrollStyle=computed(()=>{
   return {
     top:`${imageHeight.value}px`
@@ -48,8 +94,13 @@ const scrollStyle=computed(()=>{
 const back=()=>{
   router.back()
 }
+const onScroll=(pos)=>{
+  scrollY.value= -pos.y
+   console.log('pos',pos);
+}
 onMounted(()=>{
   imageHeight.value=bgImgRef.value.clientHeight
+  maxTranslteY.value=imageHeight.value-HEIGHT
 })
 </script>
 
@@ -88,8 +139,9 @@ onMounted(()=>{
     width: 100%;
     transform-origin: top;
     background-size: cover;
-    padding-top: 70%;
-    z-index: 1;
+    // padding-top: 70%;
+    // height: 0;
+    // z-index: 1;
     .play-btn-wrapper {
       position: absolute;
       bottom: 20px;
@@ -132,9 +184,11 @@ onMounted(()=>{
     bottom: 0;
     width: 100%;
     z-index: 0;
+    // overflow: hidden;
     .song-list-wrapper {
       padding: 20px 30px;
       background: $color-background;
+      
     }
   }
 }
