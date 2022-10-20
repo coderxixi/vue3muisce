@@ -14,7 +14,7 @@ const routers = [
     children:[
       {
         path:':id',
-        component:()=>import("@/view/singer-detaif.vue")
+        component:()=>import("@/view/singer-detail.vue")
       }
     ]
   },

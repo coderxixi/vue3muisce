@@ -105,7 +105,6 @@ function mergeSinger(singer) {
 
 // 注册后端路由
 function registerRouter(app) {
- 
   registerRecommend(app)
 
   registerSingerList(app)
@@ -129,7 +128,6 @@ function registerRouter(app) {
 
 // 注册推荐列表接口路由
 function registerRecommend(app) {
-  console.log('registerRecommend');
   app.get('/api/getRecommend', (req, res) => {
     // 第三方服务接口 url
     const url = 'https://u.y.qq.com/cgi-bin/musics.fcg'
@@ -197,7 +195,7 @@ function registerRecommend(app) {
 
           albums.push(albumItem)
         }
-   
+
         // 往前端发送一个标准格式的响应数据，包括成功错误码和数据
         res.json({
           code: ERR_OK,
@@ -312,6 +310,7 @@ function registerSingerList(app) {
     })
   }
 }
+
 // 注册歌手详情接口路由
 function registerSingerDetail(app) {
   app.get('/api/getSingerDetail', (req, res) => {
@@ -352,6 +351,7 @@ function registerSingerDetail(app) {
     })
   })
 }
+
 // 注册歌曲 url 获取接口路由
 // 因为歌曲的 url 每天都在变化，所以需要单独的接口根据歌曲的 mid 获取
 function registerSongsUrl(app) {
@@ -433,7 +433,7 @@ function registerSongsUrl(app) {
 }
 
 // 注册歌词接口
-function registerLyric(app ) {
+function registerLyric(app) {
   app.get('/api/getLyric', (req, res) => {
     const url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
 
