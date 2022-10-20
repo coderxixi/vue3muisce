@@ -4,29 +4,50 @@
   </div>
 </template>
 <script setup>
+import storage from "good-storage"
+import {SINGER_KEY} from "@/assets/js/constant.js"
 import { ref,reactive, onMounted, defineProps ,computed} from "vue";
 import { getSingerDetail } from "@/service/singer.js";
 import { processSongs } from "@/service/song.js";
-import MusicList from "@/components/base/music-list/music-list.vue"
+import MusicList from "@/components/base/music-list/music-list.vue";
+import {useRouter } from "vue-router";
+const router=useRouter()
 const songs=ref([]);
-// const title=ref('')
 const props = defineProps({
   singer: {
     type: Object,
-    default: () => {},
+    default:''
   },
 });
 onMounted(async () => {
-  let res = await getSingerDetail(props.singer);
+  // console.log("computedSinger.value",computedSinger.value.mid);
+  let res = await getSingerDetail(computedSinger.value);
   songs.value=res.songs
   // let songs = await processSongs(res.songs);
 });
+const computedSinger=computed(()=>{
+  const id=router.currentRoute.value.params.id
+  let ret=null ;
+  let singer=props.singer;
+  if(singer){
+    ret=singer
+  }else{
+    const cachedSinger=storage.session.get(SINGER_KEY);
+    console.log('cachedSinger',cachedSinger,id);
+    if(cachedSinger&&cachedSinger.mid==id){
+      ret=cachedSinger
+    }
+  }
+  console.log('res',ret);
+  return ret 
+})
 const title=computed(()=>{
-  return props.singer&& props.singer.name
+  return computedSinger.value&& computedSinger.value.name
 })
 const pic=computed(()=>{
-  return props.singer&&props.singer.pic
+  return computedSinger.value&&computedSinger.value.pic
 })
+
 </script>
 
 <style lang="scss" scoped>

@@ -7,11 +7,12 @@
 </template>
 
 <script setup>
-
+import storage from "good-storage"
 import { getsingList } from "@/service/singer.js";
 import { ref, onMounted } from "vue";
 import {useRouter} from "vue-router"
 import IndexList from "@/components/base/index-list/index-list.vue";
+import {SINGER_KEY} from "@/assets/js/constant.js"
 const singerList = ref([]);
 const selectSinge=ref(null)
 const route=useRouter()
@@ -21,10 +22,15 @@ onMounted(() => {
   });
 });
 const selectSinger=(item)=>{
+  cacheSinger(item)
   selectSinge.value=item;
   route.push({
     path:`/singer/${item.mid}`
   })
+}
+//缓存
+const cacheSinger=(singer)=>{
+  storage.session.set(SINGER_KEY,singer)
 }
 </script>
 
