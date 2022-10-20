@@ -11,8 +11,28 @@
         <h1 class="title">{{ currentSong?.name }}</h1>
         <h2 class="subtitle">{{ currentSong?.singer }}</h2>
       </div>
+      <!-- 按键 -->
+      <div class="bottom">
+        <div class="operators">
+          <div class="icon i-left">
+            <i class="icon-sequence"></i>
+          </div>
+          <div class="icon i-left">
+            <i class="icon-prev"></i>
+          </div>
+          <div class="icon i-center" @click="togglePaly">
+            <i :class="playIcon"></i>
+          </div>
+          <div class="icon i-right">
+            <i class="icon-next"></i>
+          </div>
+          <div class="icon i-right">
+            <i class="icon-not-favorite"></i>
+          </div>
+        </div>
+      </div>
     </div>
-    <audio ref="audioRef"></audio>
+    <audio ref="audioRef" @pause="pasue"></audio>
   </div>
 </template>
 
@@ -33,6 +53,12 @@ const fullScreen = computed(() => {
 const currentSong = computed(() => {
   return store.currentSong;
 });
+const playing=computed(()=>{
+  return store.playing
+})
+const playIcon=computed(()=>{
+  return playing.value?'icon-pause':'icon-play'
+})
 watch(currentSong, (newSong) => {
   if (newSong.id || !newSong.url) {
     return;
@@ -41,8 +67,19 @@ watch(currentSong, (newSong) => {
   audioEl.src = newSong.url;
   audioEl.play();
 });
+watch(playing,(newPlaying)=>{
+  const audioEl = audioRef.value;
+  newPlaying?audioEl.play():audioEl.pasue()
+})
 const goBlack=()=>{
   store.setFullscreen(false)
+}
+// 切换播放状态
+const togglePaly=()=>{
+  store.setPlayingState(!playing.value)
+}
+const pasue=()=>{
+  store.setPlayingState(false)
 }
 </script>
 
@@ -100,6 +137,28 @@ const goBlack=()=>{
         text-align: center;
         font-size: $font-size-medium;
         color: $color-text;
+      }
+    }
+    .bottom{
+      position:absolute;
+      bottom: 50px;
+      width: 100%;
+      .operators{
+        display: flex;
+        align-items: center;
+        .icon{
+          flex: 1;
+          color: $color-theme;
+          &.disable{
+            color:$color-theme-d
+          }
+          i{
+            font-size: 30px;
+          }
+          .i-left{
+            text-align: right;
+          }
+        }
       }
     }
   }
