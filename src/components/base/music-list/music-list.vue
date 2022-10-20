@@ -4,6 +4,7 @@
     <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
+   
     <!-- 标题 -->
     <h1 class="title">{{ title }}</h1>
     <!-- 背景区域 -->
@@ -11,7 +12,15 @@
       <div class="filter"
       :style="filterStyle"
       ></div>
+        <!-- 随机播放按钮 -->
+     <div class="play-btn-wrapper" :style="palyStyle">
+      <div class="play-btn" v-show="songs.length>0" @click="random">
+        <i class="icon-play"></i>
+        <span class="text">随机播放全部</span>
+      </div>
+     </div>
     </div>
+   
     <!--可滚动歌曲列表 -->
     <Scroll class="list" 
     :style="scrollStyle"
@@ -30,6 +39,7 @@ import SongerList from "@/components/base/singer-liset/singer-list.vue";
 import Scroll from "@/components/base/scroll/scroll.vue";
 import { defineProps, computed ,ref,onMounted} from "vue";
 import {useRouter} from "vue-router";
+import {useRandomPlay,useSelectPlay} from "@/hook.js"
 const router=useRouter()
 const imageHeight=ref(0);
 const bgImgRef=ref(null);
@@ -86,6 +96,15 @@ const filterStyle=computed(()=>{
     backdropFilter:`blur(${blur}px)`
   }
 })
+const palyStyle=computed(()=>{
+  let display='';
+  if(scrollY.value>=maxTranslteY.value){
+    display="none"
+  }
+  return {
+    display
+  }
+})
 const scrollStyle=computed(()=>{
   return {
     top:`${imageHeight.value}px`
@@ -97,6 +116,10 @@ const back=()=>{
 const onScroll=(pos)=>{
   scrollY.value= -pos.y
    console.log('pos',pos);
+}
+//点击随机播放
+const random=()=>{
+  useRandomPlay(props.songs)
 }
 onMounted(()=>{
   imageHeight.value=bgImgRef.value.clientHeight
