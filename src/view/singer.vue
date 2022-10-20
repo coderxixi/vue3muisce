@@ -2,7 +2,14 @@
   <div class="singer">
     <IndexList :singerList="singerList" @select="selectSinger"/>
     <!-- 二级路由 歌手详情 -->
-    <router-view :singer="selectSinge"></router-view>
+    
+      <router-view :singer="selectSinge" v-slot="{Component}">
+        <Transition name="slide" appear enter-active-class="slide-enter-active" slide-enter-from > 
+           <component :is="Component"></component>
+           </Transition>
+      </router-view>
+   
+  
   </div>
 </template>
 
