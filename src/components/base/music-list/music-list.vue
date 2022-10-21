@@ -6,7 +6,7 @@
     </div>
    
     <!-- 标题 -->
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title" >{{ title }}</h1>
     <!-- 背景区域 -->
     <div class="bg-image" :style="bgImageStyle" ref="bgImgRef">
       <div class="filter"
