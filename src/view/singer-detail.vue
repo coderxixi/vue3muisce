@@ -23,7 +23,7 @@ onMounted(async () => {
   // console.log("computedSinger.value",computedSinger.value.mid);
   let res = await getSingerDetail(computedSinger.value);
   songs.value=res.songs
-  // let songs = await processSongs(res.songs);
+ await processSongs(res.songs);
 });
 const computedSinger=computed(()=>{
   const id=router.currentRoute.value.params.id

@@ -90,7 +90,7 @@ const filterStyle=computed(()=>{
   const scrollYs=scrollY.value;
   const ImageHeight=imageHeight.value;
   if(scrollYs>=0){
-    blur=Math.min(maxTranslteY.value/imageHeight.value,scrollYs/ImageHeight*20) 
+    blur=Math.min(maxTranslteY.value/imageHeight.value,(scrollYs/ImageHeight))*20 
   }
   return {
     backdropFilter:`blur(${blur}px)`

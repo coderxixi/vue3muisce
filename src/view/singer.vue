@@ -2,17 +2,13 @@
   <div class="singer">
     <IndexList :singerList="singerList" @select="selectSinger"/>
     <!-- 二级路由 歌手详情 -->
-    
       <router-view :singer="selectSinge" v-slot="{Component}">
         <Transition name="slide" appear enter-active-class="slide-enter-active" slide-enter-from > 
            <component :is="Component"></component>
            </Transition>
       </router-view>
-   
-  
   </div>
 </template>
-
 <script setup>
 import storage from "good-storage"
 import { getsingList } from "@/service/singer.js";
@@ -40,7 +36,6 @@ const cacheSinger=(singer)=>{
   storage.session.set(SINGER_KEY,singer)
 }
 </script>
-
 <style lang="scss" scoped>
 .singer {
   position: fixed;

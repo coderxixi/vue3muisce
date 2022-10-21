@@ -69,7 +69,7 @@ watch(currentSong, (newSong) => {
 });
 watch(playing, (newPlaying) => {
   const audioEl = audioRef.value;
-  newPlaying ? audioEl.play() : audioEl.pasue();
+  // newPlaying ? audioEl.play() : audioEl.pasue();
 });
 const goBlack = () => {
   store.setFullscreen(false);
