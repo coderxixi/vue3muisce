@@ -13,6 +13,13 @@
       </div>
       <!-- 按键 -->
       <div class="bottom">
+        <div class="progress-wrapper">
+          <span class="time time-l">{{formatTime(currentTime)}}</span>
+          <div class="progress-bar-wrapper">
+            <ProgressBar :progress="progress"/>
+          </div>
+          <span class="time time-r">{{ formatTime(currentSong?.duration) }}</span>
+        </div>
         <div class="operators">
           <div class="icon i-left">
             <i :class="modeIcon" @click="changeMode"></i>
@@ -32,7 +39,8 @@
         </div>
       </div>
     </div>
-    <audio ref="audioRef" @pause="pasue"></audio>
+   
+    <audio ref="audioRef" @pause="pasue" @timeupdate="updateTime"></audio>
   </div>
 </template>
 
@@ -40,10 +48,14 @@
 import { ref, defineProps, computed, watch } from "vue";
 import { useStore } from "@/store/index.js";
 import useMode from "./use-mode.js"
+import {formatTime} from "@/assets/js/util.js"
 import useFavorite from "./use-favorite.js"
+import ProgressBar from "./progress-bar.vue"
 const {modeIcon,changeMode}=useMode()
 const {getFavoriteIcon,toggleFavorite}=useFavorite()
 const audioRef = ref(null);
+
+const currentTime=ref(0)
 const store = useStore();
 const props = defineProps({
   currentSong: {
@@ -51,6 +63,9 @@ const props = defineProps({
     default: {},
   },
 });
+const progress=computed(()=>{
+  // return currentTime.value/ currentSong.value.duration
+})
 const fullScreen = computed(() => {
   return store.fullScreen;
 });
@@ -67,6 +82,7 @@ watch(currentSong, (newSong) => {
   if (newSong.id || !newSong.url) {
     return;
   }
+  currentTime.value=0
   const audioEl = audioRef.value;
   audioEl.src = newSong.url;
   audioEl.play();
@@ -131,6 +147,9 @@ const loop = () => {
   audioEl.currentTime = 0;
   audioEl.play();
 };
+const updateTime=(e)=>{
+  currentTime.value=e.target.currentTime
+}
 </script>
 
 <style lang="scss" scoped>

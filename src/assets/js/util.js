@@ -25,3 +25,4 @@ export function formatTime(interval) {
   const second = (interval % 60 + '').padStart(2, '0')
   return `${minute}:${second}`
 }
+
