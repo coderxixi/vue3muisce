@@ -20,3 +20,12 @@ export function useRandomPlay(list){
   store.setCurrentIndex(0)
   store.setFullscreen(true)
 }
+
+export function useChangeMode(mode){
+  if(mode==PLAY_MODE.random){
+    store.setPlayList(shuffle(store.sequencelist))
+  }else{
+    store.setPlayList(store.sequencelist)
+  }
+  store.setPlayMode(mode)
+}

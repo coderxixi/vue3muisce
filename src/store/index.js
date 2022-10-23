@@ -6,7 +6,7 @@ import { PLAY_MODE } from "@/assets/js/constant.js"
       sequencelist: [], //顺序播放列表
       playList: [],//正在播放到歌曲列表
       playing: false,//是否正在播放
-      playMode: PLAY_MODE.sqeuence,//播放模式
+      playMode: PLAY_MODE.sequence,//播放模式
       currentIndex: 0,//当前正在播放到歌曲
       fullScreen: false//播放的状态 全屏 收缩
     }
@@ -33,6 +33,7 @@ import { PLAY_MODE } from "@/assets/js/constant.js"
     },
     //修改播放模式
     setPlayMode(mode){
+     
       this.playMode=mode
     },
     //设置当前播放索引

@@ -15,7 +15,7 @@
       <div class="bottom">
         <div class="operators">
           <div class="icon i-left">
-            <i class="icon-sequence"></i>
+            <i :class="modeIcon" @click="changeMode"></i>
           </div>
           <div class="icon i-left">
             <i class="icon-prev" @click="prev"></i>
@@ -39,6 +39,8 @@
 <script setup>
 import { ref, defineProps, computed, watch } from "vue";
 import { useStore } from "@/store/index.js";
+import useMode from "./use-mode.js"
+const {modeIcon,changeMode}=useMode()
 const audioRef = ref(null);
 const store = useStore();
 const props = defineProps({
