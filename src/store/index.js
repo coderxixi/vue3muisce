@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { PLAY_MODE } from "@/assets/js/constant.js"
+import { PLAY_MODE,FAVORITE_KEY } from "@/assets/js/constant.js"
+import { load } from '../assets/js/array-store'
  export  const useStore = defineStore('storeId', {
   state: () => {
     return {
@@ -8,7 +9,8 @@ import { PLAY_MODE } from "@/assets/js/constant.js"
       playing: false,//是否正在播放
       playMode: PLAY_MODE.sequence,//播放模式
       currentIndex: 0,//当前正在播放到歌曲
-      fullScreen: false//播放的状态 全屏 收缩
+      fullScreen: false,//播放的状态 全屏 收缩
+      favoriteList: load(FAVORITE_KEY)//收藏歌曲列表
     }
   },
   getters: {
@@ -43,6 +45,10 @@ import { PLAY_MODE } from "@/assets/js/constant.js"
     //设置当前播放大小
     setFullscreen(fullScreen){
       this.fullScreen=fullScreen
+    },
+    //修改收藏列表
+    setFavoriteList(list){
+    this.favoriteList=list
     }
   },
 })

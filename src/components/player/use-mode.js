@@ -2,7 +2,7 @@
 import { ref, defineProps, computed, watch } from "vue";
 import { useStore } from "@/store/index.js";
 import {PLAY_MODE} from "@/assets/js/constant.js"
-import {useChangeMode} from "@/hook.js"
+// import {useChangeMode} from "@/hook.js"
 export default function useMode(){
   const store=useStore();
   const playMode=computed(()=>store.playMode);

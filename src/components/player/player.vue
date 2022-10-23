@@ -27,7 +27,7 @@
             <i class="icon-next" @click="next"></i>
           </div>
           <div class="icon i-right">
-            <i class="icon-not-favorite"></i>
+            <i :class="getFavoriteIcon(currentSong)" @click="toggleFavorite(currentSong)"></i>
           </div>
         </div>
       </div>
@@ -40,7 +40,9 @@
 import { ref, defineProps, computed, watch } from "vue";
 import { useStore } from "@/store/index.js";
 import useMode from "./use-mode.js"
+import useFavorite from "./use-favorite.js"
 const {modeIcon,changeMode}=useMode()
+const {getFavoriteIcon,toggleFavorite}=useFavorite()
 const audioRef = ref(null);
 const store = useStore();
 const props = defineProps({
