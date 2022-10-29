@@ -11,6 +11,17 @@
         <h1 class="title">{{ currentSong?.name }}</h1>
         <h2 class="subtitle">{{ currentSong?.singer }}</h2>
       </div>
+<!-- 旋转唱片 -->
+<div class="middle">
+  <div class="middle-l">
+    <div class="cd-wrapper">
+      <div class="cd">
+        <img class="image" :src="currentSong?.pic" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
       <!-- 按键 -->
       <div class="bottom">
         <div class="progress-wrapper">
