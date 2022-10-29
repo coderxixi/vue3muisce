@@ -11,16 +11,22 @@
         <h1 class="title">{{ currentSong?.name }}</h1>
         <h2 class="subtitle">{{ currentSong?.singer }}</h2>
       </div>
-<!-- 旋转唱片 -->
-<div class="middle">
-  <div class="middle-l">
-    <div class="cd-wrapper">
-      <div class="cd">
-        <img class="image" :src="currentSong?.pic" alt="">
+      <!-- 旋转唱片 -->
+      <div class="middle">
+        <div class="middle-l">
+          <div class="cd-wrapper">
+            <div class="cd" ref="cdRef">
+              <img
+                ref="cdImgRef"
+                class="image"
+                :class="cdCls"
+                :src="currentSong?.pic"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <!-- 按键 -->
       <div class="bottom">
@@ -77,12 +83,15 @@ import { PLAY_MODE } from "@/assets/js/constant.js";
 import { formatTime } from "@/assets/js/util.js";
 import useFavorite from "./use-favorite.js";
 import ProgressBar from "./progress-bar.vue";
+import useCd from "./use-cd.js";
 const { modeIcon, changeMode } = useMode();
 const { getFavoriteIcon, toggleFavorite } = useFavorite();
 const audioRef = ref(null);
 const progressChanging = ref(false);
 const currentTime = ref(0);
+
 const store = useStore();
+const { cdCls,cdRef,cdImgRef} = useCd();
 const props = defineProps({
   currentSong: {
     type: Object,
