@@ -84,12 +84,14 @@ import { formatTime } from "@/assets/js/util.js";
 import useFavorite from "./use-favorite.js";
 import ProgressBar from "./progress-bar.vue";
 import useCd from "./use-cd.js";
+import useLyric from "./use-lyric.js"
 const { modeIcon, changeMode } = useMode();
 const { getFavoriteIcon, toggleFavorite } = useFavorite();
 const audioRef = ref(null);
 const progressChanging = ref(false);
 const currentTime = ref(0);
-
+// useLyric()
+useLyric()
 const store = useStore();
 const { cdCls,cdRef,cdImgRef} = useCd();
 const props = defineProps({

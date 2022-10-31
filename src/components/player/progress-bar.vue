@@ -72,6 +72,7 @@ const onTouchEnd = () => {
 };
 const onClick = (e) => {
   const rect = instant.ctx?.$el.getBoundingClientRect();
+  console.log('rect',rect);
   const offsetWidth = e.pageX - rect.left;
   const barWidth = instant.ctx?.$el.clientWidth - progressBtnWidth;
   const progress = offsetWidth / barWidth;

@@ -16,6 +16,7 @@
     "axios": "^1.1.3",
     "express": "^4.18.2",
     "good-storage": "^1.1.1",
+    "lyric-parser": "^1.0.1",
     "pinia": "^2.0.23",
     "pinyin": "2.9.1",
     "vue": "^3.2.37",
